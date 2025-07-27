@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evourth Panel - Login</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    form { background: #222; padding: 2rem; border-radius: 8px; box-shadow: 0 0 10px #444; }
+    input { display: block; margin: 1rem 0; padding: 0.5rem; width: 100%; background: #333; color: white; border: 1px solid #555; }
+    button { padding: 0.5rem 1rem; background: #0f0; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <form method="POST" action="/login">
+    <h2>Login Panel</h2>
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Masuk</button>
+  </form>
+</body>
+</html>

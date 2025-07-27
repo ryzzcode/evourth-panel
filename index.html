@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evourth Panel</title>
+  <style>
+    body { font-family: sans-serif; background: #121212; color: white; padding: 2rem; }
+    h1 { color: #0f0; }
+    input, select { padding: 0.5rem; margin: 0.5rem 0; }
+    button { padding: 0.5rem 1rem; background: #0f0; border: none; margin-right: 1rem; }
+    pre { background: #222; padding: 1rem; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Evourth Bot Panel</h1>
+
+  <section>
+    <h2>Tambah / Hapus User</h2>
+    <form id="user-form">
+      <select id="type">
+        <option value="owner">Owner</option>
+        <option value="admin">Admin</option>
+        <option value="reseller">Reseller</option>
+        <option value="premium">Premium</option>
+      </select>
+      <input type="number" id="id" placeholder="User ID" required />
+      <button type="submit">Tambah</button>
+      <button type="button" onclick="hapus()">Hapus</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Pengaturan</h2>
+    <form id="settings-form">
+      <input type="number" id="cooldown" placeholder="Cooldown (detik)" />
+      <select id="wa-status">
+        <option value="true">WA Aktif</option>
+        <option value="false">WA Nonaktif</option>
+      </select>
+      <button type="submit">Simpan</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Log Bot</h2>
+    <a href="/api/logs" target="_blank">📄 Download Log</a>
+  </section>
+
+  <script>
+    document.getElementById('user-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const type = document.getElementById('type').value;
+      const id = document.getElementById('id').value;
+      const res = await fetch('/api/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ type, id })
+      });
+      alert(await res.text());
+    });
+
+    async function hapus() {
+      const type = document.getElementById('type').value;
+      const id = document.getElementById('id').value;
+      const res = await fetch('/api/delete', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ type, id })
+      });
+      alert(await res.text());
+    }
+
+    document.getElementById('settings-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cooldownTime = document.getElementById('cooldown').value;
+      const whatsappStatus = document.getElementById('wa-status').value;
+      const res = await fetch('/api/settings', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ cooldownTime, whatsappStatus })
+      });
+      alert(await res.text());
+    });
+  </script>
+</body>
+</html>
